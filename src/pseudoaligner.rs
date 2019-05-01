@@ -314,11 +314,13 @@ fn intersect<T: Eq + Ord>(v1: &mut Vec<T>, v2: &[T]) {
 pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
     reader: fastq::Reader<File>,
     index: &Pseudoaligner<K>,
-    outdir: P,
+    output: P,
 ) -> Result<(), Error> {
     info!("Done Reading index");
     info!("Starting Multi-threaded Mapping");
-    info!("Output directory: {:?}", outdir);
+    info!("Output filename: {:?}", output);
+    let mut mapped_file = File::create(output)?;
+    mapped_file.write_all(b"lets go then.");
 
     let (tx, rx) = mpsc::sync_channel(MAX_WORKER);
     let atomic_reader = Arc::new(Mutex::new(reader.records()));
@@ -390,6 +392,7 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
                 Some(read_data) => {
                     println!("{:?}", read_data);
 
+
                     if read_data.0 {
                         mapped_read_counter += 1;
                     }
@@ -410,5 +413,6 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
 
     eprintln!();
     info!("Done Mapping Reads");
+    f.sync_all()?;
     Ok(())
 }
