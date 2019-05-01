@@ -27,7 +27,7 @@ branch = "master"
 [dependencies.boomphf]
 git = "https://github.com/10XGenomics/rust-boomphf"
 branch = "master"
-features = ["serde", "fast-constructors"]
+features = ["serde"]
 
 [profile.release]
 debug = true
