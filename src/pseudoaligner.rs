@@ -321,7 +321,7 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
     // info!("Output filename: {:?}", output);
     // let mut mapped_file = File::create(output)?;
     // mapped_file.write_all(b"lets go then.");
-    let mut mapped = Vec::new();
+    let mut mapped = Vec::<(bool, std::string::String, std::vec::Vec<u32>, usize)>::new();
     let (tx, rx) = mpsc::sync_channel(MAX_WORKER);
     let atomic_reader = Arc::new(Mutex::new(reader.records()));
 
