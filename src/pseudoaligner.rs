@@ -315,7 +315,7 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
     reader: fastq::Reader<File>,
     index: &Pseudoaligner<K>,
     output: P,
-) -> Result<(), Error> {
+) -> Result<Vec::<(bool, std::string::String, std::vec::Vec<u32>, usize)>:, Error> {
     info!("Done Reading index");
     info!("Starting Multi-threaded Mapping");
     // info!("Output filename: {:?}", output);
@@ -415,5 +415,5 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
     eprintln!();
     info!("Done Mapping Reads");
     // mapped_file.sync_all()?;
-    Ok(())
+    Ok(mmapped)
 }
