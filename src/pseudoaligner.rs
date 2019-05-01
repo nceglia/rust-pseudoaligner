@@ -318,10 +318,10 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
 ) -> Result<(), Error> {
     info!("Done Reading index");
     info!("Starting Multi-threaded Mapping");
-    info!("Output filename: {:?}", output);
-    let mut mapped_file = File::create(output)?;
-    mapped_file.write_all(b"lets go then.");
-
+    // info!("Output filename: {:?}", output);
+    // let mut mapped_file = File::create(output)?;
+    // mapped_file.write_all(b"lets go then.");
+    let mut mapped = Vec::new();
     let (tx, rx) = mpsc::sync_channel(MAX_WORKER);
     let atomic_reader = Arc::new(Mutex::new(reader.records()));
 
@@ -391,7 +391,7 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
                 }
                 Some(read_data) => {
                     println!("{:?}", read_data);
-
+                    mapped.push(read_data);
 
                     if read_data.0 {
                         mapped_read_counter += 1;
@@ -413,6 +413,6 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
 
     eprintln!();
     info!("Done Mapping Reads");
-    mapped_file.sync_all()?;
+    // mapped_file.sync_all()?;
     Ok(())
 }
