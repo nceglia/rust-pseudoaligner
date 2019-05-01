@@ -413,6 +413,6 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
 
     eprintln!();
     info!("Done Mapping Reads");
-    f.sync_all()?;
+    mapped_file.sync_all()?;
     Ok(())
 }
