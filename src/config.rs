@@ -17,10 +17,9 @@ pub const LEFT_EXTEND_FRACTION: f64 = 0.4;
 pub const U32_MAX: usize = u32::max_value() as usize;
 
 // Worker queue configs
-pub const MAX_WORKER: usize = 2;
+pub const MAX_WORKER: usize = 8;
 
 pub type KmerType = kmer::Kmer24;
 
 // Transcriptome mappability
 pub const MAPPABILITY_COUNTS_LEN: usize = 11;
-

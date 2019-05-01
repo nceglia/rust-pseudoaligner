@@ -390,8 +390,6 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
                     }
                 }
                 Some(read_data) => {
-                    println!("{:?}", read_data);
-
 
                     if read_data.0 {
                         mapped_read_counter += 1;
@@ -415,5 +413,5 @@ pub fn process_reads<K: Kmer + Sync + Send, P: AsRef<Path> + Debug>(
     eprintln!();
     info!("Done Mapping Reads");
     // mapped_file.sync_all()?;
-    Ok(mmapped)
+    Ok(mapped)
 }
